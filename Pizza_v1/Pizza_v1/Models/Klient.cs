@@ -10,7 +10,7 @@ namespace Pizza_v1.Models
             Zamowienie = new HashSet<Zamowienie>();
         }
 
-        public int IdSkladniki { get; set; }
+        public int IdKlient { get; set; }
         public string NumerTelefonu { get; set; }
         public string Mail { get; set; }
         public string Imie { get; set; }

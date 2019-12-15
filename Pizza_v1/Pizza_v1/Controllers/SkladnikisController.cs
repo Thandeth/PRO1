@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Pizza_v1.Models;
 
 namespace Pizza_v1.Controllers
@@ -32,6 +33,49 @@ namespace Pizza_v1.Controllers
             }
 
             return Ok(skladniki);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Skladniki newSkladniki)
+        {
+
+            _context.Skladniki.Add(newSkladniki);
+            _context.SaveChanges();
+
+            return StatusCode(201, newSkladniki); //201, 202
+        }
+
+        [HttpPut("{IdSkladniki:int}")]
+        public IActionResult Update(int IdSkladniki, Skladniki updateSkladniki)
+        {
+            
+
+            if (_context.Skladniki.Count(e => e.IdSkladniki == IdSkladniki) == 0)
+            {
+                return NotFound();
+            }
+
+            _context.Skladniki.Attach(updateSkladniki);
+            _context.Entry(updateSkladniki).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(updateSkladniki);
+
+        }
+
+        [HttpDelete("{IdSkladniki:int}")]
+        public IActionResult Delete(int IdSkladniki)
+        {
+            var sklad = _context.Skladniki.FirstOrDefault(e => e.IdSkladniki == IdSkladniki);
+            if (sklad == null)
+            {
+                return NotFound();
+            }
+
+            _context.Skladniki.Remove(sklad);
+            _context.SaveChanges();
+
+            return Ok(sklad);
         }
     }
 }

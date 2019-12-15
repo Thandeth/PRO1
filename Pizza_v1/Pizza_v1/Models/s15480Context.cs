@@ -116,10 +116,10 @@ namespace Pizza_v1.Models
 
             modelBuilder.Entity<Klient>(entity =>
             {
-                entity.HasKey(e => e.IdSkladniki)
+                entity.HasKey(e => e.IdKlient)
                     .HasName("Klient_pk");
 
-                entity.Property(e => e.IdSkladniki)
+                entity.Property(e => e.IdKlient)
                     .HasColumnName("id_Klient")
                     .ValueGeneratedNever();
 
